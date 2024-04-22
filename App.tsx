@@ -6,9 +6,10 @@
  */
 
 import React from 'react';
+import Root from './core/nav';
 
 function App(): React.JSX.Element | null {
-  return null;
+  return <Root />;
 }
 
 export default App;
