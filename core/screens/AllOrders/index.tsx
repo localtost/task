@@ -69,6 +69,8 @@ const AllOrders: React.FC<TMyOrderProps> = ({allOrders, buyMyOrder}) => {
         return order;
       });
 
+      setIsSelectedAll(false);
+
       setAllOrderData(transformedArray);
     },
     [allOrderData],

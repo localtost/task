@@ -36,17 +36,20 @@ const OrdersContainer = () => {
       : `${data?.qrCodeName}`;
   }, [index, data?.qrCodeName, data?.myOrder.orderNumber]);
 
-  const buyMyOrder = async (body: any) => {
-    try {
-      await buyOrder({
-        restaurantId: data?.restaurantId as string,
-        qrCodeName: data?.qrCodeName as string,
-        body,
-      }).unwrap();
-    } catch (e: any) {
-      Alert.alert(e?.data?.title ?? e?.data);
-    }
-  };
+  const buyMyOrder = useCallback(
+    async (body: any) => {
+      try {
+        await buyOrder({
+          restaurantId: data?.restaurantId as string,
+          qrCodeName: data?.qrCodeName as string,
+          body,
+        }).unwrap();
+      } catch (e: any) {
+        Alert.alert(e?.data?.title ?? e?.data);
+      }
+    },
+    [buyOrder, data?.qrCodeName, data?.restaurantId],
+  );
 
   const renderScene = useCallback(
     ({
