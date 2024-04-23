@@ -223,7 +223,12 @@ const AllOrders: React.FC<TMyOrderProps> = ({allOrders, buyMyOrder}) => {
         </View>
       );
     },
-    [addDishAmount, onDishCheckBoxPress, onOrderPressCheckboxPress],
+    [
+      addDishAmount,
+      onDeleteDishButtonPress,
+      onDishCheckBoxPress,
+      onOrderPressCheckboxPress,
+    ],
   );
 
   return (

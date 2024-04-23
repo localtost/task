@@ -1,5 +1,3 @@
-import {scaleNormalize} from '../../helpers/adaptive.ts';
-import {Spaces} from '../../theme';
 import OrdersTotalAmount from '../OrdersTotalAmount';
 import Buttons, {TPayProps} from '../Buttons';
 import {StyleSheet, View} from 'react-native';

@@ -71,7 +71,7 @@ const OrdersContainer = () => {
         }
       }
     },
-    [data],
+    [buyMyOrder, data],
   );
 
   const renderTabBar = useCallback(

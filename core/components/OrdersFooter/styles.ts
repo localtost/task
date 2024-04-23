@@ -1,5 +1,4 @@
 import {StyleSheet} from 'react-native';
-import {scaleNormalize} from '../../helpers/adaptive.ts';
 import {Palette} from '../../theme';
 
 const Styles = StyleSheet.create({

@@ -1,7 +1,6 @@
 import Styles from './styles.ts';
 import CheckBox from '../CheckBox';
 import {Text, View} from 'react-native';
-import {Spaces} from '../../theme';
 import * as React from 'react';
 
 type TSelectAllOrdersProps = {
