@@ -19,38 +19,36 @@ const AllOrders: React.FC<TMyOrderProps> = ({allOrders, buyMyOrder}) => {
   );
   const [isSelectedAll, setIsSelectedAll] = useState<boolean>(false);
 
-  const totalAmount = useMemo(() => {
-    return allOrderData?.reduce((acc, cur) => {
-      cur.orderItems.map(dish => {
-        acc += dish.price;
-      });
-      return acc;
-    }, 0);
-  }, [allOrderData]);
+  const computed = useMemo(() => {
+    return {
+      totalAmount: allOrderData?.reduce((acc, cur) => {
+        cur.orderItems.map(dish => {
+          acc += dish.price;
+        });
+        return acc;
+      }, 0),
+      totalAmountToPay: allOrderData?.reduce((acc, order) => {
+        const activeItemsToPay = order.orderItems.filter(dish => dish.isActive);
 
-  const totalAmountToPay = allOrderData?.reduce((acc, order) => {
-    const activeItemsToPay = order.orderItems.filter(dish => dish.isActive);
+        activeItemsToPay.forEach(dish => {
+          acc += dish.price;
+        });
 
-    activeItemsToPay.forEach(dish => {
-      acc += dish.price;
-    });
+        return acc;
+      }, 0),
+      totalQuantityToPay: allOrderData?.reduce((acc, order) => {
+        const activeItemsToPay = order.orderItems.filter(dish => dish.isActive);
 
-    return acc;
-  }, 0);
+        acc += activeItemsToPay.length;
 
-  const totalQuantityToPay = allOrderData?.reduce((acc, order) => {
-    const activeItemsToPay = order.orderItems.filter(dish => dish.isActive);
+        return acc;
+      }, 0),
 
-    acc += activeItemsToPay.length;
-
-    return acc;
-  }, 0);
-
-  const itemQuantity = useMemo(() => {
-    return allOrderData?.reduce(
-      (acc, order) => (acc += order?.orderItems?.length),
-      0,
-    );
+      itemQuantity: allOrderData?.reduce(
+        (acc, order) => (acc += order?.orderItems?.length),
+        0,
+      ),
+    };
   }, [allOrderData]);
 
   const onOrderPressCheckboxPress = useCallback(
@@ -247,11 +245,11 @@ const AllOrders: React.FC<TMyOrderProps> = ({allOrders, buyMyOrder}) => {
         renderItem={renderItem}
       />
       <OrdersFooter
-        totalPayQuantity={Number(totalQuantityToPay?.toFixed(2))}
-        totalPayAmount={Number(totalAmountToPay?.toFixed(2))}
+        totalPayQuantity={Number(computed.totalQuantityToPay?.toFixed(2))}
+        totalPayAmount={Number(computed.totalAmountToPay?.toFixed(2))}
         onButtonPress={onBuyAllOrdersButtonPress}
-        itemQuantity={itemQuantity}
-        totalAmount={Number(totalAmount?.toFixed(2))}
+        itemQuantity={computed.itemQuantity}
+        totalAmount={Number(computed.totalAmount?.toFixed(2))}
       />
     </OrderScreenView>
   );
